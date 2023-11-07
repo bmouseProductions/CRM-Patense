@@ -49,31 +49,38 @@ const items: MenuItem[] = [
   ]),
 ];
 
+
 const MenuComponent: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+
+   
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
 
+  let sideBarWidth
+  {collapsed ? sideBarWidth = 'w-[80px]' : sideBarWidth = 'w-[250px]'}
+
+  const styleSideBar = 'min-h-screen transition-all bg-gray-400 ' + sideBarWidth
   return (
-    <div className='min-h-screen !bg-red-600'>
-        
-        <div className='w-full px-1 flex justify-start items-center'>
-            <Button type="primary" onClick={toggleCollapsed} className='w-full max-w-[72px] mb-4 mt-5 flex justify-center items-center bg-black'>
-                {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            </Button>
+    <div className={styleSideBar}>
+        <div className='w-full pl-1 py-5'>
+          <Button type="primary" onClick={toggleCollapsed} className='w-[72px] bg-black'>
+            {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          </Button>
         </div>
+        
+        <Menu
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
+          mode="inline"
+          inlineCollapsed={collapsed}
+          items={items}
+          className='bg-transparent'
+        />
+      </div>
       
-      <Menu
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
-        mode="inline"
-        inlineCollapsed={collapsed}
-        items={items}
-        className='  text-white'
-      />
-    </div>
   );
 };
 
